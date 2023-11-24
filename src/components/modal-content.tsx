@@ -4,7 +4,7 @@ import { AnimatePresence, motion, MotionConfig } from 'framer-motion';
 import { useSwipeable } from 'react-swipeable';
 import { env } from '@/env.mjs';
 import { variants } from '@/lib/animationVariants';
-import downloadPhoto from '@/lib/downloadPhoto';
+import { downloadPhoto } from '@/lib/downloadPhoto';
 import { range } from '@/lib/range';
 import type { ImageProps } from '@/types';
 import {

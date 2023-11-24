@@ -35,7 +35,7 @@ export function Gallery({ images }: Props) {
             />
           </button>
         ))}
-        {photoId && <Modal images={images} onClose={() => setPhotoId(null)} photoId={photoId} />}
+        {(photoId || photoId === 0) && <Modal images={images} onClose={() => setPhotoId(null)} photoId={photoId} />}
       </div>
     </div>
   );

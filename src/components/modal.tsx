@@ -1,10 +1,9 @@
 import { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
+import { ModalContent } from '@/components/modal-content';
 import { useEventListener } from '@/hooks/useEventListener';
 import type { ImageProps } from '@/types';
 import { Dialog } from '@headlessui/react';
-
-import { ModalContent } from './modal-content';
 
 type Props = {
   images: ImageProps[];
@@ -19,7 +18,6 @@ export function Modal({ images, onClose, photoId }: Props) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   function changePhotoId(newVal: number) {
-    console.log(newVal);
     newVal > photoId ? setDirection(1) : setDirection(-1);
     setCurIndex(newVal);
   }
