@@ -19,16 +19,17 @@ export function Modal({ images, onClose, photoId }: Props) {
   const overlayRef = useRef<HTMLDivElement>(null);
 
   function changePhotoId(newVal: number) {
+    console.log(newVal);
     newVal > photoId ? setDirection(1) : setDirection(-1);
     setCurIndex(newVal);
   }
 
   useEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' && photoId + 1 < images.length) {
-      changePhotoId(photoId + 1);
+    if (e.key === 'ArrowRight' && curIndex + 1 < images.length) {
+      changePhotoId(curIndex + 1);
     }
-    if (e.key === 'ArrowLeft' && photoId > 0) {
-      changePhotoId(photoId - 1);
+    if (e.key === 'ArrowLeft' && curIndex > 0) {
+      changePhotoId(curIndex - 1);
     }
   });
 
