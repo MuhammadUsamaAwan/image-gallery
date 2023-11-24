@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
-// import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEventListener } from '@/hooks/useEventListener';
 import type { ImageProps } from '@/types';
 import { Dialog } from '@headlessui/react';
+
+import { ModalContent } from './modal-content';
 
 type Props = {
   images: ImageProps[];
@@ -11,37 +12,23 @@ type Props = {
   photoId: number;
 };
 
-export default function Modal({ images, onClose, photoId }: Props) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-  //   const router = useRouter();
-
-  let index = Number(photoId);
-
+export function Modal({ images, onClose, photoId }: Props) {
   const [direction, setDirection] = useState(0);
-  const [curIndex, setCurIndex] = useState(index);
+  const [curIndex, setCurIndex] = useState(photoId);
+
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   function changePhotoId(newVal: number) {
-    if (newVal > index) {
-      setDirection(1);
-    } else {
-      setDirection(-1);
-    }
+    newVal > photoId ? setDirection(1) : setDirection(-1);
     setCurIndex(newVal);
-    // router.push(
-    //   {
-    //     query: { photoId: newVal },
-    //   },
-    //   `/p/${newVal}`,
-    //   { shallow: true }
-    // );
   }
 
   useEventListener('keydown', e => {
-    if (e.key === 'ArrowRight' && index + 1 < images.length) {
-      changePhotoId(index + 1);
+    if (e.key === 'ArrowRight' && photoId + 1 < images.length) {
+      changePhotoId(photoId + 1);
     }
-    if (e.key === 'ArrowLeft' && index > 0) {
-      changePhotoId(index - 1);
+    if (e.key === 'ArrowLeft' && photoId > 0) {
+      changePhotoId(photoId - 1);
     }
   });
 
@@ -61,15 +48,14 @@ export default function Modal({ images, onClose, photoId }: Props) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       />
-      shared modal
-      {/* <SharedModal
+      <ModalContent
         index={curIndex}
+        currentPhoto={images[curIndex] as ImageProps}
         direction={direction}
         images={images}
         changePhotoId={changePhotoId}
-        closeModal={handleClose}
-        navigation={true}
-      /> */}
+        closeModal={onClose}
+      />
     </Dialog>
   );
 }

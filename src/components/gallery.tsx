@@ -2,10 +2,9 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { Modal } from '@/components/modal';
 import { env } from '@/env.mjs';
 import { ImageProps } from '@/types';
-
-import Modal from './modal';
 
 type Props = {
   images: ImageProps[];

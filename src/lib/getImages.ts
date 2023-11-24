@@ -4,8 +4,8 @@ import { ImageProps } from '@/types';
 
 export async function getImages(folder: string) {
   const results = await cloudinary.v2.search.expression(`folder:${folder}/*`).sort_by('public_id', 'desc').execute();
-  let images: ImageProps[] = results.resources.map((image: ImageProps) => ({
-    id: image.public_id,
+  let images: ImageProps[] = results.resources.map((image: ImageProps, i: number) => ({
+    id: i,
     height: image.height,
     width: image.width,
     public_id: image.public_id,
